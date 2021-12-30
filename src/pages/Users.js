@@ -15,7 +15,7 @@ function Users() {
   if (isLoading) {
     content = <p>...loading</p>;
   } else if (isSuccess) {
-    content = users.map(user => <div key={user.id}>{users}</div>);
+    content = users.map(user => <div key={user.id}>{user.firstName}</div>);
   } else if (isError) {
     content = <div>{error.toString()}</div>;
   }
