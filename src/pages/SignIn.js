@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Another() {
+export default function SignIn() {
   return (
     <div>
-      <h1>hello</h1>
+      <p>Sign in page</p>
     </div>
   )
 }
