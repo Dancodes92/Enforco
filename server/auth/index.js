@@ -1,36 +1,38 @@
-const router = require("express").Router()
-const Users = require("../db/models/User")
+const router = require("express").Router();
+const Users = require("../db/models/User");
 
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body
-    res.send({ token: await Users.authenticate({ email, password }) })
+    console.log(req.body)
+    res.send({ token: await Users.authenticate(req.body) });
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 router.post("/signup", async (req, res, next) => {
   try {
-    console.log(req.body)
-    const user = await Users.create(req.body)
-    res.send({ token: await user.generateToken() })
+    console.log("new user", req.body);
+    const user = await Users.create(req.body);
+    res.send({ token: await user.generateToken() });
   } catch (err) {
     if (err.name === "SequelizeUniqueConstraintError") {
-      res.status(401).send("User already exists")
+      res.status(401).send("User already exists");
     } else {
-      next(err)
+      next(err);
     }
   }
-})
+});
 
 router.get("/me", async (req, res, next) => {
   try {
-    const User = await Users.findByToken(req.headers)
-    res.send(User)
+    console.log(req)
+    const User = await Users.findByToken(req.headers);
+    res.send(User);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-module.exports = router
+module.exports = router;

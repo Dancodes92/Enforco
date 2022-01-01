@@ -8,6 +8,7 @@ import { store } from "./store/index";
 import { BrowserRouter } from "react-router-dom";
 import history from './history'
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

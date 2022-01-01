@@ -4,29 +4,21 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "/", // should this be http://localhost:3001/api
-    // prepareHeaders: (headers, { getState }) => {
-    //   const token = getState().auth.token;
-    //   if (token) {
-    //     headers.set("authorization", `Bearer ${token}`);
-    //   }
-    //   return headers;
-    // },
+    prepareHeaders: (headers, { getState }) => {
+      console.log(getState())
+      const token = getState().authorization.token
+
+      // If we have a token set in state, let's assume that we should be passing it.
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
+    }
   }),
   endpoints: builder => ({
     auth: builder.query({
-      query: () => "/auth/me",
-    }),
-    getUsers: builder.query({
-      query: () => "api/users",
-    }),
-    signUp: builder.mutation({
-      query: initialSignUp => ({
-        url: "auth/signup",
-        method: "POST",
-        body: initialSignUp,
-      }),
+      query: () => "auth/me",
     }),
   }),
 });
 
-export const { useAuthQuery, useGetUsersQuery, useSignUpMutation } = apiSlice;
+export const { useAuthQuery } = apiSlice;
