@@ -20,13 +20,13 @@ const Signup = () => {
 
   useEffect(() => {
     return () => {
-      // dispatch(clearState());
+      dispatch(clearState());
     };
   }, []);
 
   useEffect(() => {
     if (isSuccess) {
-      // dispatch(clearState());
+      dispatch(clearState());
       navigate('/home');
     }
 
@@ -165,3 +165,6 @@ const Signup = () => {
 };
 
 export default Signup;
+
+
+

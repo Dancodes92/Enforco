@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const signupUser = createAsyncThunk(
-  'users/signupUser',
+  'user/signupUser',
   async ({ name, email, password }, thunkAPI) => {
     try {
       const response = await fetch(
@@ -36,7 +36,7 @@ export const signupUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'users/login',
+  'user/login',
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await fetch(
@@ -68,8 +68,8 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const fetchUserBytoken = createAsyncThunk(
-  'users/',
+export const fetchUserByToken = createAsyncThunk(
+  'user/',
   async ({ token }, thunkAPI) => {
     try {
       const response = await fetch(
@@ -149,17 +149,17 @@ export const userSlice = createSlice({
     [loginUser.pending]: (state) => {
       state.isFetching = true;
     },
-    [fetchUserBytoken.pending]: (state) => {
+    [fetchUserByToken.pending]: (state) => {
       state.isFetching = true;
     },
-    [fetchUserBytoken.fulfilled]: (state, { payload }) => {
+    [fetchUserByToken.fulfilled]: (state, { payload }) => {
       state.isFetching = false;
       state.isSuccess = true;
 
       state.email = payload.email;
-      // state.username = payload.name;
+      state.name = payload.name;
     },
-    [fetchUserBytoken.rejected]: (state) => {
+    [fetchUserByToken.rejected]: (state) => {
       console.log('fetchUserBytoken');
       state.isFetching = false;
       state.isError = true;

@@ -19,7 +19,7 @@ const Login = ({}) => {
 
   useEffect(() => {
     return () => {
-      // dispatch(clearState());
+      dispatch(clearState());
     };
   }, []);
 
@@ -30,7 +30,7 @@ const Login = ({}) => {
     }
 
     if (isSuccess) {
-      // dispatch(clearState());
+      dispatch(clearState());
       navigate('/home');
     }
   }, [isError, isSuccess]);

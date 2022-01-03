@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import RequireAuth from "./components/RequireAuth";
+
+function TheRoutes(props) {
 
 
-function routes() {
   return (
-      <Routes>
-        <Route path="/" element={<Landing />} />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/home" element={<Home />} />
-      </Routes>
+        </Routes>
   );
 }
 
-export default routes;
+export default TheRoutes;

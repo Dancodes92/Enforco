@@ -4,14 +4,15 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "/", // should this be http://localhost:3001/api
-    prepareHeaders: (headers, { getState }) => {
-      console.log(getState())
-      const token = getState().authorization.token
+    prepareHeaders: (headers) => {
 
-      // If we have a token set in state, let's assume that we should be passing it.
+      const token = localStorage.getItem("token");
       if (token) {
-        headers.set('authorization', `Bearer ${token}`)
+        headers.set('authorization', token);
+        console.log("token", token);
       }
+
+      return headers;
     }
   }),
   endpoints: builder => ({
