@@ -3,18 +3,25 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { signupUser, userSelector, clearState } from "../store/features/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuthQuery } from "../store/features/api/apiSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { register, errors, handleSubmit } = useForm();
-  const navigate = useNavigate()
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
-  const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-    userSelector
-  );
-  const onSubmit = (data) => {
+  const { refetch } = useAuthQuery();
+
+  function handleRefetch() {
+    refetch();
+  }
+
+  const { isFetching, isSuccess, isError, errorMessage } =
+    useSelector(userSelector);
+  const onSubmit = data => {
     dispatch(signupUser(data));
   };
 
@@ -27,13 +34,15 @@ const Signup = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(clearState());
-      navigate('/home');
+      handleRefetch();
+      navigate(state?.path || "/home");
     }
 
     if (isError) {
       toast.error(errorMessage);
       dispatch(clearState());
     }
+    // eslint-disable-next-line
   }, [isSuccess, isError]);
 
   return (
@@ -165,6 +174,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-
-

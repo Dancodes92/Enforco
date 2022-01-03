@@ -1,19 +1,27 @@
-import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, userSelector, clearState } from '../store/features/auth';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import React, { Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, userSelector, clearState } from "../store/features/auth";
+import toast from "react-hot-toast";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuthQuery } from "../store/features/api/apiSlice";
 
-const Login = ({}) => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { register, errors, handleSubmit } = useForm();
-  const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-    userSelector
-  );
-  const onSubmit = (data) => {
+  const { register, handleSubmit } = useForm();
+  const { isFetching, isSuccess, isError, errorMessage } =
+    useSelector(userSelector);
+  const { state } = useLocation();
+
+  const { refetch } = useAuthQuery();
+
+  function handleRefetch() {
+    refetch();
+  }
+
+  const onSubmit = data => {
     dispatch(loginUser(data));
   };
 
@@ -21,7 +29,7 @@ const Login = ({}) => {
     return () => {
       dispatch(clearState());
     };
-  }, []);
+  });
 
   useEffect(() => {
     if (isError) {
@@ -31,9 +39,11 @@ const Login = ({}) => {
 
     if (isSuccess) {
       dispatch(clearState());
-      navigate('/home');
+      handleRefetch();
+      navigate(state?.path || "/home");
     }
-  }, [isError, isSuccess]);
+    // eslint-disable-next-line
+  }, [dispatch, errorMessage, navigate, isError, isSuccess]);
 
   return (
     <Fragment>
@@ -63,7 +73,7 @@ const Login = ({}) => {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    {... register("email", {
+                    {...register("email", {
                       pattern: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/i,
                     })}
                     required
@@ -110,7 +120,7 @@ const Login = ({}) => {
                         cy="12"
                         r="10"
                         stroke="currentColor"
-                        stroke-width="4"
+                        strokeWidth="4"
                       ></circle>
                       <path
                         className="opacity-75"
