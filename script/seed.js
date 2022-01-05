@@ -2,6 +2,7 @@
 
 const {db, models: {User} } = require('../server/db')
 
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -27,9 +28,9 @@ async function seed() {
 }
 
 /*
- We've separated the `seed` function from the `runSeed` function.
- This way we can isolate the error handling and exit trapping.
- The `seed` function is concerned only with modifying the database.
+We've separated the `seed` function from the `runSeed` function.
+This way we can isolate the error handling and exit trapping.
+The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
   console.log('seeding...')
@@ -46,9 +47,9 @@ async function runSeed() {
 }
 
 /*
-  Execute the `seed` function, IF we ran this module directly (`node seed`).
-  `Async` functions always return a promise, so we can use `catch` to handle
-  any errors that might occur inside of `seed`.
+Execute the `seed` function, IF we ran this module directly (`node seed`).
+`Async` functions always return a promise, so we can use `catch` to handle
+any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
   runSeed()
@@ -56,3 +57,4 @@ if (module === require.main) {
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
 module.exports = seed
+

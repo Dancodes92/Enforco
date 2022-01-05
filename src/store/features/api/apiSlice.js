@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
-  reducerPath: "auth",
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/auth", // should this be http://localhost:3001/api
+    baseUrl: "/", // should this be http://localhost:3001/api
     prepareHeaders: headers => {
       const token = localStorage.getItem("token");
       if (token) {
@@ -16,12 +16,20 @@ export const apiSlice = createApi({
   }),
   endpoints: builder => ({
     auth: builder.query({
-      query: () => "/me",
+      query: () => "/auth/me",
     }),
-    clear: builder.query({
-      query: () => "auth/clear",
-  }),
+    addTask: builder.mutation({
+      query: task => ({
+        url: 'api/task',
+        method: 'POST',
+        // Include the entire post object as the body of the request
+        body: task,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    })
   }),
 });
 
-export const { useAuthQuery } = apiSlice;
+export const { useAuthQuery, useAddTaskMutation } = apiSlice;
