@@ -12,7 +12,16 @@ function NewTask() {
   const [loading, setLoading] = useState(false);
   const [isImage, setIsImage] = useState(false);
 
-  const [addTask, { loading: mutationLoading, error: mutationError }] = useAddTaskMutation();
+  const [addTask, { loading: mutationLoading, error: mutationError }] =
+    useAddTaskMutation();
+
+  const addFile = e => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = readerEvent => {
+      setFile(readerEvent.target.result);
+    };
+  };
 
   const onTaskNameChange = e => {
     setTaskName(e.target.value);
@@ -29,36 +38,36 @@ function NewTask() {
   const onReceiverChange = e => {
     setReceiver(e.target.value);
   };
-  const onFileChange = e => {
-    setFile(e.target.files[0]);
-    setIsImage(true);
-  };
   const onSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     try {
       await addTask({
-        taskName, description, deadline, enforcer, receiver, file
-    }
-    );
+        taskName,
+        description,
+        deadline,
+        enforcer,
+        receiver,
+        file,
+      });
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
   };
 
-
   return (
-    <div className="container mx-auto">
+    <div className="min-h-screen bg-gray-50 flex justify-center py-10 sm:px-6 lg:px-10">
       <div className="container mx-auto">
-        <h1>New Task</h1>
+        <h1 className="text-center text-3xl font-extrabold text-gray-900">
+          Create a new task
+        </h1>
       </div>
       <div className="container mx-auto">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="taskName">Task Name</label>
             <input
-
               type="text"
               className="form-control"
               id="taskName"
@@ -70,7 +79,6 @@ function NewTask() {
           <div className="form-group">
             <label htmlFor="description">Description</label>
             <input
-
               type="text"
               className="form-control"
               id="description"
@@ -82,7 +90,6 @@ function NewTask() {
           <div className="form-group">
             <label htmlFor="deadline">Deadline</label>
             <input
-
               type="date"
               className="form-control"
               id="deadline"
@@ -94,8 +101,6 @@ function NewTask() {
           <div className="form-group">
             <label htmlFor="enforcer">Enforcer</label>
             <input
-
-
               type="email"
               className="form-control"
               id="enforcer"
@@ -107,8 +112,6 @@ function NewTask() {
           <div className="form-group">
             <label htmlFor="receiver">Receiver</label>
             <input
-
-
               type="email"
               className="form-control"
               id="receiver"
@@ -124,14 +127,10 @@ function NewTask() {
               className="form-control-file"
               id="file"
               ref={filePickerRef}
-              onChange={onFileChange}
+              onChange={addFile}
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={loading}
-          >
+          <button type="submit" className="btn btn-primary" disabled={loading}>
             Submit
           </button>
         </form>
