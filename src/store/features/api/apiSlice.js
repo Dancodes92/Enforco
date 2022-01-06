@@ -20,16 +20,19 @@ export const apiSlice = createApi({
     }),
     addTask: builder.mutation({
       query: task => ({
-        url: 'api/task',
-        method: 'POST',
+        url: "api/tasks",
+        method: "POST",
         // Include the entire post object as the body of the request
         body: task,
         headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    })
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+    getTasks: builder.query({
+      query: () => "/tasks",
+    }),
   }),
 });
 
-export const { useAuthQuery, useAddTaskMutation } = apiSlice;
+export const { useAuthQuery, useAddTaskMutation, useGetTasksQuery } = apiSlice;

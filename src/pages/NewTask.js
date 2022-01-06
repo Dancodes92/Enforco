@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useAddTaskMutation } from "../store/features/api/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 function NewTask() {
   const [taskName, setTaskName] = useState("");
@@ -11,6 +12,7 @@ function NewTask() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isImage, setIsImage] = useState(false);
+  const navigate = useNavigate();
 
   const [addTask, { loading: mutationLoading, error: mutationError }] =
     useAddTaskMutation();
@@ -54,6 +56,7 @@ function NewTask() {
         receiver,
         file,
       });
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }
@@ -165,7 +168,7 @@ function NewTask() {
                   onClick={onSubmit}
                   disabled={!canAddTask}
                 >
-                  {loading ? "Loading..." : "Create"}
+                  {mutationLoading ? "Loading..." : "Create"}
                 </button>
               ) : (
                 <div></div>

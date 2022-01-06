@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useAuthQuery } from "../store/features/api/apiSlice";
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 
 function RequireAuth({ children }) {
   const { data, isLoading, error } = useAuthQuery();
   const location = useLocation();
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (error) {
       console.log(error);
@@ -18,7 +19,7 @@ function RequireAuth({ children }) {
 
   if (error) {
     console.log("error", error);
-    return <div>Error!</div>;
+    navigate("/404");
   }
 
   return data ? (

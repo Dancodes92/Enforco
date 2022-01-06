@@ -32,8 +32,10 @@ router.post("/", async (req, res, next) => {
         email: enforcer,
       },
     });
-    const theReceiver = await Receiver.create({
-      email: receiver,
+    const theReceiver = await Receiver.findOrCreate({
+      where: {
+        email: receiver,
+      },
     });
     const task = await Task.create({
       name: taskName,
@@ -44,10 +46,27 @@ router.post("/", async (req, res, next) => {
       userId: id,
       enforcerId: theEnforcer[0].id, //theEnforcer[0] is the array of the enforcer
     });
-    await task.TheReceiver(task.id, theReceiver.id);
+    await task.addReceiver(theReceiver[0]);
 
     res.json(task);
   } catch (err) {
     next(err);
   }
 });
+
+// route to get all tasks for a user
+router.get("/", async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.headers.authorization);
+    const { id } = user;
+    const tasks = await Task.findAll({
+      where: {
+        userId: id,
+      },
+    });
+    res.json(tasks);
+  } catch (err) {
+    next(err);
+  }
+}
+);

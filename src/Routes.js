@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import RequireAuth from "./components/RequireAuth";
 import NewTask from "./pages/NewTask";
 import NotFound from "./pages/NotFound";
+import AllTasks from "./pages/AllTasks";
 
 function TheRoutes(props) {
 
@@ -16,6 +17,7 @@ function TheRoutes(props) {
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
           <Route path="/newtask" element={<RequireAuth><NewTask /></RequireAuth>} />
+          <Route path="/tasks" element={<RequireAuth><AllTasks /></RequireAuth>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

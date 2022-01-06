@@ -26,7 +26,7 @@ export default function Home(props) {
   if (data) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm">
+        <div className="sm:mx-auto sm text-center">
           Welcome back <h3>{data.name}</h3>
         </div>
         <div className="container mx-auto">
@@ -37,13 +37,12 @@ export default function Home(props) {
             Create a new task
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-12"
             onClick={() => navigate("/tasks")}
           >
             View all tasks
           </button>
-
-          </div>
+        </div>
       </div>
     );
   }

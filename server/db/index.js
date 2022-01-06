@@ -14,8 +14,8 @@ Task.belongsTo(User);
 Enforcer.hasMany(Task);
 Task.belongsTo(Enforcer);
 
-Task.hasMany(Receiver);
-Receiver.belongsTo(Task);
+Task.belongsToMany(Receiver, {through: "TaskReceiver"});
+Receiver.belongsToMany(Task, {through: "TaskReceiver"});
 
 User.hasMany(Enforcer);
 Enforcer.belongsTo(User);
