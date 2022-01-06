@@ -30,7 +30,7 @@ export const apiSlice = createApi({
       }),
     }),
     getTasks: builder.query({
-      query: () => "/tasks",
+      query: () => "api/tasks",
     }),
   }),
 });
