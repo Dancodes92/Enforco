@@ -11,6 +11,7 @@ export default function Home(props) {
       console.log(error);
       navigate("/signin");
     }
+    // eslint-disable-next-line
   }, [error]);
 
   if (isLoading) {
@@ -24,8 +25,8 @@ export default function Home(props) {
 
   if (data) {
     return (
-      <div className="container mx-auto">
-        <div className="container mx-auto">
+      <div className="min-h-screen bg-gray-50 flex flex-col py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm">
           Welcome back <h3>{data.name}</h3>
         </div>
         <div className="container mx-auto">
@@ -35,6 +36,13 @@ export default function Home(props) {
           >
             Create a new task
           </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => navigate("/tasks")}
+          >
+            View all tasks
+          </button>
+
           </div>
       </div>
     );

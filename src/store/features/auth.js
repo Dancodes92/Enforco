@@ -62,7 +62,7 @@ export const loginUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(data);
       }
     } catch (e) {
-      console.log('Error', e.response.data);
+      console.log('The ERRRR', e.response.data);
       thunkAPI.rejectWithValue(e.response.data);
     }
   }
@@ -144,7 +144,7 @@ export const userSlice = createSlice({
       console.log('payload', payload);
       state.isFetching = false;
       state.isError = true;
-      state.errorMessage = payload.message;
+
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true;

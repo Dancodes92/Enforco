@@ -35,6 +35,7 @@ const Login = () => {
     if (isError) {
       toast.error(errorMessage);
       dispatch(clearState());
+      alert("error");
     }
 
     if (isSuccess) {
@@ -46,7 +47,7 @@ const Login = () => {
   }, [dispatch, errorMessage, navigate, isError, isSuccess]);
 
   return (
-    <Fragment>
+    <>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -137,7 +138,7 @@ const Login = () => {
               <div className="relative">
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Or <Link to="/signup"> Signup</Link>
+                    Or <Link to="signup">Sign up</Link>
                   </span>
                 </div>
               </div>
@@ -145,7 +146,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 
