@@ -10,18 +10,37 @@ import NotFound from "./pages/NotFound";
 import AllTasks from "./pages/AllTasks";
 
 function TheRoutes(props) {
-
-
   return (
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
-          <Route path="/newtask" element={<RequireAuth><NewTask /></RequireAuth>} />
-          <Route path="/tasks" element={<RequireAuth><AllTasks /></RequireAuth>} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route
+        path="/home"
+        element={
+          <RequireAuth>
+            <Home />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/newtask"
+        element={
+          <RequireAuth>
+            <NewTask />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/tasks"
+        element={
+          <RequireAuth>
+            <AllTasks />
+          </RequireAuth>
+        }
+      />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

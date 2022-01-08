@@ -41,6 +41,8 @@ const Login = () => {
     if (isSuccess) {
       dispatch(clearState());
       handleRefetch();
+
+
       navigate(state?.path || "/home");
     }
     // eslint-disable-next-line

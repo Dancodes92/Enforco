@@ -1,27 +1,37 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthQuery } from "../store/features/api/apiSlice";
+import { useAuthQuery, useGetTasksQuery } from "../store/features/api/apiSlice";
+import TaskClosestToDeadline from "../components/TaskClosestToDeadline";
 
 export default function Home(props) {
   const { data, isLoading, error } = useAuthQuery();
   const navigate = useNavigate();
+  const {
+    data: tasksData,
+    isLoading: tasksIsLoading,
+    error: tasksError,
+  } = useGetTasksQuery();
 
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-      navigate("/signin");
-    }
-    // eslint-disable-next-line
-  }, [error]);
+  if(tasksError) {
+    console.log(tasksError);
+  }
 
-  if (isLoading) {
+  if(tasksIsLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    console.log("error", error);
-    navigate("/signin");
-  }
+
+  //copy the tasksData object
+  const tasks = tasksData ? [...tasksData] : [];
+
+  const closestTask = tasksData?.find(
+    task =>
+      task.deadline ===
+      tasksData?.reduce((min, p) => (p.deadline < min.deadline ? p : min))
+        .deadline
+  ); //  ?. is used to check if the task is not null
+
+
 
   if (data) {
     return (
@@ -42,6 +52,7 @@ export default function Home(props) {
           >
             View all tasks
           </button>
+          <TaskClosestToDeadline tasks={tasks} />
         </div>
       </div>
     );

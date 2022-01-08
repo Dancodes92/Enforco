@@ -30,7 +30,7 @@ function AllTasks() {
               <tr>
                 <th className="px-4 py-2">Task</th>
                 <th className="px-4 py-2">Description</th>
-                <th className="px-4 py-2">Status</th>
+                <th className="px-4 py-2">Deadline</th>
               </tr>
             </thead>
             <tbody>

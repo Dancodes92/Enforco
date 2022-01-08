@@ -8,12 +8,12 @@ export const apiSlice = createApi({
       const token = localStorage.getItem("token");
       if (token) {
         headers.set("authorization", token);
-        console.log("token", token);
       }
 
       return headers;
     },
   }),
+  tagTypes: ["POST", "PUT", "DELETE"],
   endpoints: builder => ({
     auth: builder.query({
       query: () => "/auth/me",
@@ -28,11 +28,19 @@ export const apiSlice = createApi({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["POST"],
     }),
     getTasks: builder.query({
       query: () => "api/tasks",
+      providesTags: ["POST"],
+    }),
+    getTask: builder.query({
+      query: id => ({
+        url: `api/tasks/${id}`,
+        method: "GET",
+      }),
     }),
   }),
 });
 
-export const { useAuthQuery, useAddTaskMutation, useGetTasksQuery } = apiSlice;
+export const { useAuthQuery, useAddTaskMutation, useGetTasksQuery, useGetTaskQuery } = apiSlice;
