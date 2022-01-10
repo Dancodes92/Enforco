@@ -24,10 +24,10 @@ export default function Home(props) {
   //copy the tasksData object
   const tasks = tasksData ? [...tasksData] : [];
 
-  const closestTask = tasksData?.find(
+  const closestTask = tasks?.find(
     task =>
       task.deadline ===
-      tasksData?.reduce((min, p) => (p.deadline < min.deadline ? p : min))
+      tasks?.reduce((min, p) => (p.deadline < min.deadline ? p : min))
         .deadline
   ); //  ?. is used to check if the task is not null
 
@@ -52,7 +52,7 @@ export default function Home(props) {
           >
             View all tasks
           </button>
-          <TaskClosestToDeadline tasks={tasks} />
+          <TaskClosestToDeadline tasks={closestTask} />
         </div>
       </div>
     );
