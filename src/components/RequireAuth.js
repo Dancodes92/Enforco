@@ -17,23 +17,19 @@ function RequireAuth({ children }) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return (
-      <div>
-        <Navigate to="/login" replace state={{ path: location.pathname }} />
-      </div>
-    )
-  }
+  // if (error) {
+  //   return (
+  //     <div>
+  //       <Navigate to="/login" replace state={{ path: location.pathname }} />
+  //     </div>
+  //   )
+  // }
 
   if (isFetching) {
     return <div>Fetching...</div>;
   }
 
-  if (isSuccess) {
-    return children;
-  }
-
-  return null;
+  return isSuccess ? children : <div>Not authenticated</div>;
 
   // const navigate = useNavigate();
   // useEffect(() => {
