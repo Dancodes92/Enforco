@@ -13,7 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["POST", "PUT", "DELETE"],
+  tagTypes: ["POST", "PUT", "DELETE", "GET"],
   endpoints: builder => ({
     auth: builder.query({
       query: () => "/auth/me",

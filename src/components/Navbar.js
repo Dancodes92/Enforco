@@ -40,7 +40,7 @@ function Navbar(props) {
             <h1>Enforco</h1>
           </Link>
           <div className="flex">
-            <Link to="/signin">Sign In</Link>
+            <Link to="/login">Sign In</Link>
           </div>
         </div>
       )}

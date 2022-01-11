@@ -169,7 +169,7 @@ const Signup = () => {
               <div className="relative">
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-white text-gray-500">
-                    Or <Link to="signin"> Sign In</Link>
+                    Or <Link to="/login">Sign in</Link>
                   </span>
                 </div>
               </div>

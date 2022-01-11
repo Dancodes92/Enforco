@@ -34,46 +34,35 @@ function TaskClosestToDeadline(props) {
   }, [props.tasks]);
 
 
-  // // get the deadline from props.tasks.deadline
-  // const Thedeadline = props.tasks.deadline;
-  // // convert the deadline to a date object
-  // // wrap deadlineDate in useMemo to avoid re-rendering
-  // const deadlineDate = useMemo(() => new Date(Thedeadline), [Thedeadline]);
-  // // find the local timezone offset
-  // const timezoneOffset = deadlineDate.getTimezoneOffset() * 60000;
-  // // add the timezone offset to the deadline date
-
-  // const deadlineDateWithOffset = useMemo(() => new Date(deadlineDate.getTime() + timezoneOffset), [
-  //   deadlineDate,
-  //   timezoneOffset,
-  // ]);
-
-
-
-
-
-
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const currentDate = new Date();
-  //     const deadline = deadlineDateWithOffset
-  //     const timeDiff = deadline.getTime() - currentDate.getTime();
-  //     const daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-  //     const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
-  //     const minutesLeft = Math.floor(timeDiff / 1000 / 60) % 60;
-  //     const secondsLeft = Math.floor(timeDiff / 1000) % 60;
-  //     setDaysLeft(daysLeft);
-  //     setHoursLeft(hoursLeft);
-  //     setMinutesLeft(minutesLeft);
-  //     setSecondsLeft(secondsLeft);
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, [deadlineDateWithOffset]);
-
  if(!props.tasks) {
     return null
   }
+
+
+
+  // return the task name with a tailwind animation for the countdown
+//   return (
+//     <div className="flex flex-col justify-center items-center">
+//       <h1 className="text-4xl font-bold text-center">
+//         {props.tasks.name}
+//         <span className="text-blue-500">
+//           <span className="text-6xl font-bold">
+//             {daysLeft} D   {hoursLeft} H   {minutesLeft} M   {secondsLeft} S
+//           </span>
+//           <span className="text-6xl font-bold">
+//             {hoursLeft} H
+//           </span>
+//           <span className="text-6xl font-bold">
+//             {minutesLeft} M
+//           </span>
+//           <span className="text-6xl font-bold">
+//             {secondsLeft} S
+//           </span>
+//         </span>
+//       </h1>
+//     </div>
+//   );
+// }
 
   return (
     <div className="flex flex-col items-center justify-center">

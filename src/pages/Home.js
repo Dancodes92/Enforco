@@ -3,23 +3,69 @@ import { useNavigate } from "react-router-dom";
 import { useAuthQuery, useGetTasksQuery } from "../store/features/api/apiSlice";
 import TaskClosestToDeadline from "../components/TaskClosestToDeadline";
 
-export default function Home(props) {
+export default function Home() {
   const { data, isLoading, error } = useAuthQuery();
   const navigate = useNavigate();
   const {
     data: tasksData,
     isLoading: tasksIsLoading,
     error: tasksError,
+    isUninitialized,
+    refetch,
   } = useGetTasksQuery();
 
-  if(tasksError) {
-    console.log(tasksError);
-  }
+  const refreshTasks = () => {
+    if (isUninitialized) {
+      navigate("/login");
+    }
+    refetch();
+  };
 
-  if(tasksIsLoading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (isUninitialized) {
+      navigate("/login");
+    }
 
+    if (tasksError) {
+      console.log("tasksError", tasksError);
+    }
+
+    if (tasksIsLoading) {
+      console.log("tasksIsLoading", tasksIsLoading);
+    }
+
+    if (error) {
+      console.log("error", error);
+      navigate("/404");
+    }
+
+    if (isLoading) {
+      console.log("isLoading", isLoading);
+    }
+
+    if (tasksData) {
+      console.log("tasksData", tasksData);
+      refetch();
+    }
+  }, [
+    data,
+    error,
+    isLoading,
+    isUninitialized,
+    navigate,
+    tasksData,
+    tasksError,
+    tasksIsLoading,
+    refetch,
+  ]);
+
+  // if (tasksError) {
+  //   console.log(tasksError);
+  // }
+
+  // if (tasksIsLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   //copy the tasksData object
   const tasks = tasksData ? [...tasksData] : [];
@@ -27,11 +73,23 @@ export default function Home(props) {
   const closestTask = tasks?.find(
     task =>
       task.deadline ===
-      tasks?.reduce((min, p) => (p.deadline < min.deadline ? p : min))
-        .deadline
+      tasks?.reduce((min, p) => (p.deadline < min.deadline ? p : min)).deadline
   ); //  ?. is used to check if the task is not null
 
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     return;
+  //   }
 
+  //   if (error) {
+  //     console.log(error);
+  //     navigate("/404");
+  //   }
+
+  //   if (isUninitialized) {
+  //     navigate("/login");
+  //   }
+  // }, [isLoading, error, isUninitialized, navigate]);
 
   if (data) {
     return (

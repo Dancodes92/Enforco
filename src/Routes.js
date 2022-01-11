@@ -38,7 +38,7 @@ function TheRoutes(props) {
         }
       />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/signin" element={<SignIn />} />
+      <Route path="/login" element={<SignIn />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
