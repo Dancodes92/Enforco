@@ -11,15 +11,15 @@ function NewTask() {
   const filePickerRef = null;
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isImage, setIsImage] = useState(false);
   const navigate = useNavigate();
 
   const [addTask, { loading: mutationLoading, error: mutationError }] =
     useAddTaskMutation();
 
   const canAddTask =
-    [taskName, description, deadline, enforcer, receiver, file].every(Boolean) &&
-    !loading;
+    [taskName, description, deadline, enforcer, receiver, file].every(
+      Boolean
+    ) && !loading;
 
   const addFile = e => {
     const reader = new FileReader();

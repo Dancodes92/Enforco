@@ -59,14 +59,6 @@ export default function Home() {
     refetch,
   ]);
 
-  // if (tasksError) {
-  //   console.log(tasksError);
-  // }
-
-  // if (tasksIsLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
   //copy the tasksData object
   const tasks = tasksData ? [...tasksData] : [];
 
@@ -75,21 +67,6 @@ export default function Home() {
       task.deadline ===
       tasks?.reduce((min, p) => (p.deadline < min.deadline ? p : min)).deadline
   ); //  ?. is used to check if the task is not null
-
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     return;
-  //   }
-
-  //   if (error) {
-  //     console.log(error);
-  //     navigate("/404");
-  //   }
-
-  //   if (isUninitialized) {
-  //     navigate("/login");
-  //   }
-  // }, [isLoading, error, isUninitialized, navigate]);
 
   if (data) {
     return (

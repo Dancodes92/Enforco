@@ -70,9 +70,15 @@ function TaskClosestToDeadline(props) {
         {props.tasks.name}
       </h1>
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-2xl font-bold">
-          {daysLeft} days, {hoursLeft} hours, {minutesLeft} minutes, {secondsLeft} seconds
-        </h2>
+        {daysLeft === 0 ? (
+          <span className="text-6xl font-bold text-red-700">
+            {hoursLeft} H   {minutesLeft} M   {secondsLeft} S
+          </span>
+        ) : (
+          <span className="text-6xl font-bold text-blue-500">
+            {daysLeft} D   {hoursLeft} H   {minutesLeft} M
+          </span>
+        )}
       </div>
     </div>
   );
