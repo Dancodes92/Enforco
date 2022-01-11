@@ -74,16 +74,27 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// route to get all tasks for a user
+// route to get all tasks for a user and all the enforcers for each task
 router.get("/", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
-    const { id } = user;
     const tasks = await Task.findAll({
       where: {
-        userId: id,
+        userId: user.id,
       },
-      attributes: ["id", "name", "description", "deadline", "isFinished"],
+      include: [
+        {
+          model: Enforcer,
+          as: "enforcer",
+        },
+        {
+          model: Receiver,
+          as: "receivers",
+        },
+      ],
+      attributes: {
+        exclude: ["userId", "enforcerId", "receiverId", "image"],
+      },
     });
     res.json(tasks);
   } catch (err) {
