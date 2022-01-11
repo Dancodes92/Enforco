@@ -83,6 +83,7 @@ router.get("/", async (req, res, next) => {
       where: {
         userId: id,
       },
+      attributes: ["id", "name", "description", "deadline", "isFinished"],
     });
     res.json(tasks);
   } catch (err) {

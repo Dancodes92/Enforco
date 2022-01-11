@@ -13,7 +13,7 @@ function NewTask() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [addTask, { loading: mutationLoading, error: mutationError }] =
+  const [addTask, { isLoading: mutationLoading, error: mutationError, }] =
     useAddTaskMutation();
 
   const canAddTask =
