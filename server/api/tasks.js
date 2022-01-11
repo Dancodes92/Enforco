@@ -4,6 +4,7 @@ const {
 } = require("../db");
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
+const nodeMailer = require("nodemailer");
 module.exports = router;
 
 // route to create a new task for a user and add a receiver and enforcer to the task
@@ -25,8 +26,7 @@ router.post("/", async (req, res, next) => {
 
     const user = await User.findByToken(req.headers.authorization);
     const { id } = user;
-    const { taskName, description, deadline, receiver, enforcer } =
-      req.body;
+    const { taskName, description, deadline, receiver, enforcer } = req.body;
     const theEnforcer = await Enforcer.findOrCreate({
       where: {
         email: enforcer,
@@ -47,6 +47,26 @@ router.post("/", async (req, res, next) => {
       enforcerId: theEnforcer[0].id, //theEnforcer[0] is the array of the enforcer
     });
     await task.addReceiver(theReceiver[0]);
+    const transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: enforcer,
+      subject: `${user.name} is asking you to make sure they finish ${task.name}`,
+      text: `You have a been asked to enforce a task for ${user.name}. Please log in to your account to accept or reject the task. click here to login https://task-manager-app.herokuapp.com/login`,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
 
     res.json(task);
   } catch (err) {
@@ -68,5 +88,4 @@ router.get("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
-);
+});
