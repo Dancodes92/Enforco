@@ -8,6 +8,7 @@ import RequireAuth from "./components/RequireAuth";
 import NewTask from "./pages/NewTask";
 import NotFound from "./pages/NotFound";
 import AllTasks from "./pages/AllTasks";
+import Enforcer from "./pages/Enforcer";
 
 function TheRoutes(props) {
   return (
@@ -34,6 +35,14 @@ function TheRoutes(props) {
         element={
           <RequireAuth>
             <AllTasks />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/enforcer"
+        element={
+          <RequireAuth>
+            <Enforcer />
           </RequireAuth>
         }
       />

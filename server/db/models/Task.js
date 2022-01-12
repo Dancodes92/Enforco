@@ -26,6 +26,11 @@ const Task = db.define("task", {
     allowNull: false,
     defaultValue: false,
   },
+  isAccepted: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 module.exports = Task;

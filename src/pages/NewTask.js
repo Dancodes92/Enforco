@@ -13,7 +13,7 @@ function NewTask() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [addTask, { loading: mutationLoading, error: mutationError }] =
+  const [addTask, { isLoading: mutationLoading, error: mutationError, }] =
     useAddTaskMutation();
 
   const canAddTask =
@@ -109,13 +109,12 @@ function NewTask() {
             </label>
             <input
               type="date"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
               id="deadline"
               placeholder="Enter deadline"
               value={deadline}
               onChange={onDeadlineChange}
             />
-
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="enforcer"
