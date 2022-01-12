@@ -31,6 +31,7 @@ function AllTasks() {
                 <th className="px-4 py-2">Task</th>
                 <th className="px-4 py-2">Description</th>
                 <th className="px-4 py-2">Deadline</th>
+                <th className="px-4 py-2">Enforcer</th>
               </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@ function AllTasks() {
                   <td className="border px-4 py-2">{task.name}</td>
                   <td className="border px-4 py-2">{task.description}</td>
                   <td className="border px-4 py-2">{task.deadline}</td>
+                  <td className="border px-4 py-2">{task.enforcer.email}</td>
                 </tr>
               ))}
             </tbody>

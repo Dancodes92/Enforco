@@ -13,7 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["POST", "PUT", "DELETE", "GET"],
+  tagTypes: ["POST", "GET"],
   endpoints: builder => ({
     auth: builder.query({
       query: () => "/auth/me",
@@ -40,7 +40,27 @@ export const apiSlice = createApi({
         method: "GET",
       }),
     }),
+    getTasksWhereUserIsEnforcer: builder.query({
+      query: () => ({
+        url: "api/tasks/enforcer",
+        method: "GET",
+      }),
+    }),
+    acceptTask: builder.mutation({
+      query: accept => ({
+        url: `api/tasks/accept`,
+        method: "PUT",
+        body: accept,
+      }),
+    }),
   }),
 });
 
-export const { useAuthQuery, useAddTaskMutation, useGetTasksQuery, useGetTaskQuery } = apiSlice;
+export const {
+  useAuthQuery,
+  useAddTaskMutation,
+  useGetTasksQuery,
+  useGetTaskQuery,
+  useGetTasksWhereUserIsEnforcerQuery,
+  useAcceptTaskMutation,
+} = apiSlice;

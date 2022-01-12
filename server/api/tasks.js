@@ -29,7 +29,7 @@ router.post("/", async (req, res, next) => {
     const { taskName, description, deadline, receiver, enforcer } = req.body;
     const theEnforcer = await Enforcer.findOrCreate({
       where: {
-        email: enforcer,
+        email: enforcer.toLowerCase(),
       },
     });
     const theReceiver = await Receiver.findOrCreate({
@@ -97,6 +97,66 @@ router.get("/", async (req, res, next) => {
       },
     });
     res.json(tasks);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//route to get all tasks that a user is enforcer for
+router.get("/enforcer", async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.headers.authorization);
+    const iAmEnforcer = await Enforcer.findAll({
+      where: {
+        email: user.email.toLowerCase(),
+      },
+    });
+    const tasks = await Task.findAll({
+      where: {
+        enforcerId: iAmEnforcer[0].id,
+      },
+      include: [
+        {
+          model: Enforcer,
+          as: "enforcer",
+        },
+        {
+          model: Receiver,
+          as: "receivers",
+        },
+        {
+          model: User,
+          as: "user",
+          attributes: {
+            exclude: ["password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["userId", "enforcerId", "receiverId", "image"],
+      },
+    });
+    res.json(tasks);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// route to edit a task and update isAccepted to true
+router.put("/accept", async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.headers.authorization);
+    const task = await Task.findByPk(req.body.id);
+    const enforcer = await Enforcer.findByPk(task.enforcerId);
+    console.log(enforcer.email, user.email);
+    if (enforcer.email.toLowerCase() !== user.email.toLowerCase()) {
+      res
+        .status(401)
+        .json({ message: "You are not authorized to edit this task" });
+    } else {
+      const updatedTask = await task.update(req.body);
+      res.json(updatedTask);
+    }
   } catch (err) {
     next(err);
   }
