@@ -48,7 +48,7 @@ export const apiSlice = createApi({
     }),
     acceptTask: builder.mutation({
       query: accept => ({
-        url: `api/tasks/accept`,
+        url: `api/tasks/acceptorcomplete`,
         method: "PUT",
         body: accept,
       }),

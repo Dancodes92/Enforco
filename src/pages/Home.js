@@ -65,7 +65,7 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm text-center">
-          Welcome back <h3>{data.name}</h3>
+          <h3>Lets Get it Done {data.name}!</h3>
         </div>
         <div className="container mx-auto">
           <button

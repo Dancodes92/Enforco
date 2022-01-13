@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   useGetTasksWhereUserIsEnforcerQuery,
   useAcceptTaskMutation,
@@ -6,11 +6,11 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Enforcer() {
-  const { data, isLoading, isSuccess, isError, error } =
+  const { data, isLoading, isSuccess, isError, error, refetch } =
     useGetTasksWhereUserIsEnforcerQuery();
   const [updateTask] = useAcceptTaskMutation();
 
-  const onAccept = async (taskId) => {
+  const onAccept = async taskId => {
     const { data } = await updateTask({
       id: taskId,
       isAccepted: true,
@@ -18,8 +18,35 @@ function Enforcer() {
     console.log("data", data);
   };
 
+  const onComplete = async taskId => {
+    const { data } = await updateTask({
+      id: taskId,
+      isFinished: true,
+    });
+    console.log("data", data);
+  };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      console.log("isError", isError);
+      navigate("/404");
+    }
+
+    if (isLoading) {
+      console.log("isLoading", isLoading);
+    }
+
+    if (isSuccess) {
+      console.log("isSuccess", isSuccess);
+      refetch();
+    }
+
+    if (data) {
+      console.log("data", data);
+    }
+  }, [data, error, isError, isLoading, isSuccess, navigate, refetch]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -52,13 +79,17 @@ function Enforcer() {
             <h3>{task.deadline}</h3>
             <h3>{task.description}</h3>
             <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => onAccept(task.id)}
-
             >
               Accept
             </button>
-            <button>Reject</button>
-            <button>Complete</button>
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => onComplete(task.id)}
+            >
+              Complete
+            </button>
           </div>
         ))}
       </div>

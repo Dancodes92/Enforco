@@ -143,13 +143,12 @@ router.get("/enforcer", async (req, res, next) => {
 });
 
 // route to edit a task and update isAccepted to true
-router.put("/accept", async (req, res, next) => {
+router.put("/acceptorcomplete", async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization);
     const task = await Task.findByPk(req.body.id);
     const enforcer = await Enforcer.findByPk(task.enforcerId);
-    console.log(enforcer.email, user.email);
-    if (enforcer.email.toLowerCase() !== user.email.toLowerCase()) {
+    if (enforcer.email.toLowerCase() !== user.email.toLowerCase()) { // check if the user is the enforcer of the task
       res
         .status(401)
         .json({ message: "You are not authorized to edit this task" });
@@ -161,3 +160,6 @@ router.put("/accept", async (req, res, next) => {
     next(err);
   }
 });
+
+
+
