@@ -44,6 +44,7 @@ export const apiSlice = createApi({
       query: () => ({
         url: "api/tasks/enforcer",
         method: "GET",
+        providesTags: ["PUT"],
       }),
     }),
     acceptTask: builder.mutation({
@@ -52,6 +53,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: accept,
       }),
+      invalidatesTags: ["PUT"],
     }),
   }),
 });
