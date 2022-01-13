@@ -55,11 +55,23 @@ export default function Home() {
   //copy the tasksData object
   const tasks = tasksData ? [...tasksData] : [];
 
-  const closestTask = tasks?.find(
+  //get tasks where isAccepted is true and isFinished is false
+  const acceptedTasks = tasks?.filter(
+    task => task.isAccepted && !task.isFinished
+  );
+  console.log("acceptedTasks", acceptedTasks);
+
+  const closestTask = acceptedTasks?.find(
     task =>
       task.deadline ===
       tasks?.reduce((min, p) => (p.deadline < min.deadline ? p : min)).deadline
   ); //  ?. is used to check if the task is not null
+
+  const userIsEnforcer = tasks.find(
+    task => task.enforcer.email.toLowerCase() === data.email.toLowerCase()
+  );
+
+  console.log("userIsEnforcer", userIsEnforcer);
 
   if (data) {
     return (
@@ -80,15 +92,17 @@ export default function Home() {
           >
             View all tasks
           </button>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-12"
-            onClick={() => navigate("/enforcer")}
-          >
-            Enforcing tasks
-          </button>
+
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-12"
+              onClick={() => navigate("/enforcer")}
+            >
+              View all enforcer tasks
+            </button>
+
+
           <TaskClosestToDeadline tasks={closestTask} />
         </div>
-        <div></div>
       </div>
     );
   }

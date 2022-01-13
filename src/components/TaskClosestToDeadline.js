@@ -6,10 +6,6 @@ function TaskClosestToDeadline(props) {
   const [minutesLeft, setMinutesLeft] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(0);
 
-
-
-
-
   useEffect(() => {
     if (props.tasks) {
       const interval = setInterval(() => {
@@ -30,16 +26,24 @@ function TaskClosestToDeadline(props) {
         setSecondsLeft(seconds);
       }, 1000);
 
-
       return () => clearInterval(interval);
     }
   }, [props.tasks]);
 
+  //if the deadline is in the past, return "deadline passed"
+  if (daysLeft < 0) {
+    // return "deadline passed"; and center the text in the div blinking red
+
+    return (
+      <div className="text-center text-red-500 text-xl font-bold animate-pulse">
+        Deadline Passed
+      </div>
+    );
+  }
 
   if (!props.tasks) {
     return null;
   }
-
 
   return (
     <div className="flex flex-col items-center justify-center">

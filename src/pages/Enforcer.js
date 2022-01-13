@@ -31,7 +31,6 @@ function Enforcer() {
   useEffect(() => {
     if (isError) {
       console.log("isError", isError);
-      navigate("/404");
     }
 
     if (isLoading) {
@@ -53,8 +52,14 @@ function Enforcer() {
   }
 
   if (isError) {
-    console.log("error", error);
-    navigate("/404");
+    // You are not currently enforcer for any tasks
+    // return styled to be centered and have a button to go back to home
+    return (
+      <div>
+        <h1>You are not currently enforcer for any tasks</h1>
+        <button onClick={() => navigate("/home")}>Go back to home</button>
+      </div>
+    );
   }
 
   if (isSuccess) {
