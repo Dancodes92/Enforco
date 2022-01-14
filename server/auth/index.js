@@ -3,8 +3,11 @@ const Users = require("../db/models/User");
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { email, password } = req.body
-    console.log(req.body)
+    // create a new object with the user's email and password that turns the email into lowercase
+    const { email, password } = req.body;
+    // set the email to lowercase
+
+    console.log(req.body);
     res.send({ token: await Users.authenticate(req.body) });
   } catch (error) {
     next(error);

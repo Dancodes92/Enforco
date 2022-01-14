@@ -1,90 +1,81 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const signupUser = createAsyncThunk(
-  'user/signupUser',
+  "user/signupUser",
   async ({ name, email, password }, thunkAPI) => {
     try {
-      const response = await fetch(
-        'auth/signup',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch("auth/signup", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
       let data = await response.json();
-      console.log('data', data);
+      console.log("data", data);
 
       if (response.status === 200) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
         return { ...data, email: email };
       } else {
         return thunkAPI.rejectWithValue(data);
       }
     } catch (e) {
-      console.log('Error', e.response.data);
+      console.log("Error", e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);
     }
   }
 );
 
 export const loginUser = createAsyncThunk(
-  'user/login',
+  "user/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await fetch(
-        'auth/login',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch("auth/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
       let data = await response.json();
-      console.log('response', data);
+      console.log("response", data);
       if (response.status === 200) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
         return data;
       } else {
         return thunkAPI.rejectWithValue(data);
       }
     } catch (e) {
-      console.log('The ERRRR', e.response.data);
+      console.log("The ERRRR", e.response.data);
       thunkAPI.rejectWithValue(e.response.data);
     }
   }
 );
 
 export const fetchUserByToken = createAsyncThunk(
-  'user/',
+  "user/",
   async ({ token }, thunkAPI) => {
     try {
-      const response = await fetch(
-        'auth/me',
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            Authorization: token,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await fetch("auth/me", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
       let data = await response.json();
-      console.log('data', data, response.status);
+      console.log("data", data, response.status);
 
       if (response.status === 200) {
         return { ...data };
@@ -92,24 +83,24 @@ export const fetchUserByToken = createAsyncThunk(
         return thunkAPI.rejectWithValue(data);
       }
     } catch (e) {
-      console.log('Error', e.response.data);
+      console.log("Error", e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);
     }
   }
 );
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
-    email: '',
-    name: '',
+    email: "",
+    name: "",
     isFetching: false,
     isSuccess: false,
     isError: false,
-    errorMessage: '',
+    errorMessage: "",
   },
   reducers: {
-    clearState: (state) => {
+    clearState: state => {
       state.isError = false;
       state.isSuccess = false;
       state.isFetching = false;
@@ -119,13 +110,13 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [signupUser.fulfilled]: (state, { payload }) => {
-      console.log('payload', payload);
+      console.log("payload", payload);
       state.isFetching = false;
       state.isSuccess = true;
       state.email = payload.email;
       state.name = payload.name;
     },
-    [signupUser.pending]: (state) => {
+    [signupUser.pending]: state => {
       state.isFetching = true;
     },
     [signupUser.rejected]: (state, { payload }) => {
@@ -141,15 +132,14 @@ export const userSlice = createSlice({
       return state;
     },
     [loginUser.rejected]: (state, { payload }) => {
-      console.log('payload', payload);
+      console.log("payload", payload);
       state.isFetching = false;
       state.isError = true;
-
     },
-    [loginUser.pending]: (state) => {
+    [loginUser.pending]: state => {
       state.isFetching = true;
     },
-    [fetchUserByToken.pending]: (state) => {
+    [fetchUserByToken.pending]: state => {
       state.isFetching = true;
     },
     [fetchUserByToken.fulfilled]: (state, { payload }) => {
@@ -159,8 +149,8 @@ export const userSlice = createSlice({
       state.email = payload.email;
       state.name = payload.name;
     },
-    [fetchUserByToken.rejected]: (state) => {
-      console.log('fetchUserBytoken');
+    [fetchUserByToken.rejected]: state => {
+      console.log("fetchUserBytoken");
       state.isFetching = false;
       state.isError = true;
     },
@@ -169,4 +159,4 @@ export const userSlice = createSlice({
 
 export const { clearState } = userSlice.actions;
 
-export const userSelector = (state) => state.user;
+export const userSelector = state => state.user;

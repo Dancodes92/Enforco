@@ -9,6 +9,13 @@ const SALT_ROUNDS = 5;
 const User = db.define("user", {
   email: {
     type: Sequelize.STRING,
+    set(value) {
+      this.setDataValue("email", value.toLowerCase());
+    },
+    get() {
+      const rawValue = this.getDataValue("email");
+      return rawValue ? rawValue.toLowerCase() : rawValue;
+    },
     unique: true,
     allowNull: false,
     validate: {
@@ -43,6 +50,8 @@ User.prototype.generateToken = function () {
  * classMethods
  */
 User.authenticate = async function ({ email, password }) {
+  // set email to lowercase
+  email = email.toLowerCase();
   const user = await this.findOne({ where: { email } });
   if (!user || !(await user.correctPassword(password))) {
     const error = Error("Incorrect username/password");
