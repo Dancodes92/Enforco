@@ -12,10 +12,6 @@ const User = db.define("user", {
     set(value) {
       this.setDataValue("email", value.toLowerCase());
     },
-    get() {
-      const rawValue = this.getDataValue("email");
-      return rawValue ? rawValue.toLowerCase() : rawValue;
-    },
     unique: true,
     allowNull: false,
     validate: {

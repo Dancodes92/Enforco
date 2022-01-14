@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useAddTaskMutation } from "../store/features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function NewTask() {
   const [taskName, setTaskName] = useState("");
@@ -13,7 +14,7 @@ function NewTask() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [addTask, { isLoading: mutationLoading, error: mutationError, }] =
+  const [addTask, { isLoading: mutationLoading, error: mutationError }] =
     useAddTaskMutation();
 
   const canAddTask =
@@ -36,7 +37,13 @@ function NewTask() {
     setDescription(e.target.value);
   };
   const onDeadlineChange = e => {
-    setDeadline(e.target.value);
+    // do not allow to set deadline in the past
+    if (new Date(e.target.value) < new Date()) {
+      toast.error("Deadline cannot be in the past");
+      return;
+    } else {
+      setDeadline(e.target.value);
+    }
   };
   const onEnforcerChange = e => {
     setEnforcer(e.target.value);
@@ -108,6 +115,8 @@ function NewTask() {
               Deadline
             </label>
             <input
+              // do not allow user to enter date in the pasts
+
               type="date"
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
               id="deadline"
@@ -167,7 +176,7 @@ function NewTask() {
                   onClick={onSubmit}
                   disabled={!canAddTask}
                 >
-                  {mutationLoading ? "Loading..." : "Create"}
+                  {loading ? "Loading..." : "Create"}
                 </button>
               ) : (
                 <div></div>

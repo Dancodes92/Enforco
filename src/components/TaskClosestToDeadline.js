@@ -33,7 +33,7 @@ function TaskClosestToDeadline(props) {
   //if the deadline is in the past, return "deadline passed"
   if (daysLeft < 0) {
     // return "deadline passed"; and center the text in the div blinking red
-    
+
 
     return (
       <div className="text-center text-red-500 text-xl font-bold animate-pulse">

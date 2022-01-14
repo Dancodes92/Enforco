@@ -31,6 +31,11 @@ const Task = db.define("task", {
     allowNull: false,
     defaultValue: false,
   },
+  status: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "pending",
+  },
 });
 
 module.exports = Task;

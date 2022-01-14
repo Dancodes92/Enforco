@@ -37,7 +37,7 @@ function AllTasks() {
             </thead>
             <tbody>
               {tasks?.map(task => (
-                task.isFinished === false && (
+                task.status === "active" && (
                 <tr
                   key={task.id}
                   className={task.isAccepted ? "" : "bg-red-200"}
@@ -72,11 +72,12 @@ function AllTasks() {
                   <th className="px-4 py-2">Description</th>
                   <th className="px-4 py-2">Deadline</th>
                   <th className="px-4 py-2">Enforcer</th>
+                  <th className="px-4 py-2">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {tasks?.map(task =>
-                  task.isFinished ? (
+                  task.isFinished || task.status === "failed" ? (
                     <tr
                       key={task.id}
                       className="bg-green-700"
@@ -86,6 +87,11 @@ function AllTasks() {
                       <td className="border px-4 py-2">{task.deadline}</td>
                       <td className="border px-4 py-2">
                         {task.enforcer.email}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {task.status === "failed"
+                          ? "Failed"
+                          : "Finished"}
                       </td>
                     </tr>
                   ) : null

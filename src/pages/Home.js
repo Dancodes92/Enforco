@@ -57,7 +57,7 @@ export default function Home() {
 
   //get tasks where isAccepted is true and isFinished is false
   const acceptedTasks = tasks?.filter(
-    task => task.isAccepted && !task.isFinished
+    task => task.status === "active"
   );
   console.log("acceptedTasks", acceptedTasks);
 

@@ -144,6 +144,7 @@ function Enforcer() {
     const { data } = await updateTask({
       id: taskId,
       isAccepted: true,
+      status: "active",
     });
     refetch()
     // update the task that is accepted
@@ -154,6 +155,7 @@ function Enforcer() {
     const { data } = await updateTask({
       id: taskId,
       isFinished: true,
+      status: "finished",
     });
     console.log("data", data);
   };
