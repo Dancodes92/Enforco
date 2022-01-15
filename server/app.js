@@ -18,7 +18,7 @@ app.use("/api", require("./api"));
 
 
 app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "..", "public/index.html"))
+  res.sendFile(path.join(__dirname, "..", '../react-ui/build'))
 );
 
 // static file-serving middleware
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 
 // sends index.html
 app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "public/index.html"));
+  res.sendFile(path.join(__dirname, "..", '../react-ui/build', 'index.html'));
 });
 
 // error handling endware
