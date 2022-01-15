@@ -3,26 +3,26 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 module.exports = app;
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 // logging middleware
 app.use(morgan("dev"));
 
 // body parsing middleware
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(express.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(express.json({ limit: "50mb" }));
 
 // auth and api routes
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 
-
-app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "..", '../react-ui/build'))
-);
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../react-ui/build/index.html"));
+});
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", '../react-ui/build')));
+
+app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
@@ -37,13 +37,14 @@ app.use((req, res, next) => {
 
 // sends index.html
 app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", '../react-ui/build', 'index.html'));
+  res.sendFile(
+    path.resolve(__dirname, "..", "../react-ui/build", "index.html")
+  );
 });
 
 // error handling endware
-app.use((err, req, res, ) => {
+app.use((err, req, res) => {
   console.error(err);
   console.error(err.stack);
   res.status(err.status || 500).send(err.message || "Internal server error.");
 });
-
