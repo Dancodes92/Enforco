@@ -44,6 +44,6 @@
   "license": "MIT",
   "devDependencies": {},
   "engines": {
-    "node": "10.x"
+    "node": "17.x"
   }
 }
