@@ -40,7 +40,12 @@ const Signup = () => {
     if (isError) {
       toast.error(errorMessage);
       dispatch(clearState());
+      console.log("error", errorMessage);
     }
+
+    return () => {
+      dispatch(clearState());
+    };
     // eslint-disable-next-line
   }, [isSuccess, isError]);
 
