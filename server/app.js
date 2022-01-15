@@ -22,7 +22,7 @@ app.get("/", (req, res) =>
 );
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, "..", '../react-ui/build')));
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
@@ -41,7 +41,7 @@ app.use("*", (req, res) => {
 });
 
 // error handling endware
-app.use((err, req, res, next) => {
+app.use((err, req, res, ) => {
   console.error(err);
   console.error(err.stack);
   res.status(err.status || 500).send(err.message || "Internal server error.");
