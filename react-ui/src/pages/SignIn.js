@@ -42,11 +42,20 @@ const Login = () => {
       dispatch(clearState());
       handleRefetch();
 
-
       navigate(state?.path || "/home");
     }
+
+    return () => {
+      dispatch(clearState());
+    };
     // eslint-disable-next-line
   }, [dispatch, errorMessage, navigate, isError, isSuccess]);
+
+  if (isError) {
+    toast.error(errorMessage);
+    dispatch(clearState());
+    console.log("error", errorMessage);
+  }
 
   return (
     <>

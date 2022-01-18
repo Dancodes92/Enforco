@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node server JWT=secret",
+    "start": "nodemon server JWT=secret",
+    "start-dev": "node server JWT=secret --dev",
     "seed": "node script/seed.js",
     "build": "cd react-ui/ && npm install && npm run build",
     "test": "react-scripts test",

@@ -122,6 +122,7 @@ const Signup = () => {
                       pattern:
                         /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/,
                       required: true,
+                      message: "error"
                     })}
                     autoComplete="current-password"
                     required

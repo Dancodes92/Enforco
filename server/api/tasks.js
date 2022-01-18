@@ -145,14 +145,37 @@ router.get("/enforcer", async (req, res, next) => {
 // route to edit a task and update isAccepted to true
 router.put("/acceptorcomplete", async (req, res, next) => {
   try {
+    console.log("req.body", req.body);
     const user = await User.findByToken(req.headers.authorization);
     const task = await Task.findByPk(req.body.id);
+    const taskUser = await User.findByPk(task.userId);
     const enforcer = await Enforcer.findByPk(task.enforcerId);
-    if (enforcer.email.toLowerCase() !== user.email.toLowerCase()) { // check if the user is the enforcer of the task
+    if (enforcer.email.toLowerCase() !== user.email.toLowerCase()) {
+      // check if the user is the enforcer of the task
       res
         .status(401)
         .json({ message: "You are not authorized to edit this task" });
     } else {
+      const transporter = nodeMailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+        },
+      });
+      const mailOptions = {
+        from: process.env.EMAIL,
+        to: taskUser.email,
+        subject: `${enforcer.name} has accepted your task`,
+        text: `Your task has been accepted by ${enforcer.email}. The countdown has begun... Godspeed. click here to login https://task-manager-app.herokuapp.com/login`,
+      };
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
       const updatedTask = await task.update(req.body);
       res.json(updatedTask);
     }
@@ -160,8 +183,3 @@ router.put("/acceptorcomplete", async (req, res, next) => {
     next(err);
   }
 });
-
-
-
-
-

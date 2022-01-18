@@ -37,7 +37,7 @@ function AllTasks() {
             </thead>
             <tbody>
               {tasks?.map(task => (
-                task.status === "active" && (
+                task.isFinished === false && (
                 <tr
                   key={task.id}
                   className={task.isAccepted ? "" : "bg-red-200"}

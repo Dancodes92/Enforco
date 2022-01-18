@@ -122,7 +122,7 @@ export const userSlice = createSlice({
     [signupUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
-      state.errorMessage = "user already exists";
+      state.errorMessage = payload;
     },
     [loginUser.fulfilled]: (state, { payload }) => {
       state.email = payload.email;
