@@ -163,10 +163,11 @@ router.put("/acceptorcomplete", async (req, res, next) => {
           pass: process.env.PASSWORD,
         },
       });
+      if (req.body.status === "active") {
       const mailOptions = {
         from: process.env.EMAIL,
         to: taskUser.email,
-        subject: `${enforcer.name} has accepted your task`,
+        subject: `${enforcer.email} has accepted your task`,
         text: `Your task has been accepted by ${enforcer.email}. The countdown has begun... Godspeed. click here to login https://task-manager-app.herokuapp.com/login`,
       };
       transporter.sendMail(mailOptions, function (error, info) {
@@ -176,6 +177,22 @@ router.put("/acceptorcomplete", async (req, res, next) => {
           console.log("Email sent: " + info.response);
         }
       });
+      }
+      if (req.body.status === "finished") {
+        const mailOptions = {
+          from: process.env.EMAIL,
+          to: taskUser.email,
+          subject: `YOUR PICTURES ARE DESTROYED! ${enforcer.email} has marked task as finished`,
+          text: `Your task has been marked finished by ${enforcer.email}. You have avoided embarrasment! Rest assured the embarrasing pictures have been destroyed. click here to login https://task-manager-app.herokuapp.com/login`,
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+      }
       const updatedTask = await task.update(req.body);
       res.json(updatedTask);
     }

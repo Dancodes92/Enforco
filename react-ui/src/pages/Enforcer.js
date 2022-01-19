@@ -4,6 +4,7 @@ import {
   useAcceptTaskMutation,
 } from "../store/features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 // function Enforcer() {
 //   const { data, isLoading, isSuccess, isError, error, refetch } =
@@ -146,9 +147,7 @@ function Enforcer() {
       isAccepted: true,
       status: "active",
     });
-    refetch()
-    // update the task that is accepted
-    console.log("data", data);
+    refetch();
   };
 
   const onComplete = async taskId => {
@@ -182,7 +181,7 @@ function Enforcer() {
   }, [data, error, isError, isLoading, isSuccess, navigate, refetch]);
 
   if (isLoading) {
-    return <div></div>;
+    return <Spinner />;
   }
 
   if (isError) {
@@ -230,7 +229,10 @@ function Enforcer() {
                   <td>{task.name}</td>
                   <td>{task.deadline}</td>
                   <td>
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-12"  onClick={() => onComplete(task.id)}>
+                    <button
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-12"
+                      onClick={() => onComplete(task.id)}
+                    >
                       Complete
                     </button>
                   </td>
@@ -255,7 +257,10 @@ function Enforcer() {
                   <td>{task.name}</td>
                   <td>{task.deadline}</td>
                   <td>
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-12"  onClick={() => onAccept(task.id)}>
+                    <button
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-12"
+                      onClick={() => onAccept(task.id)}
+                    >
                       Accept
                     </button>
                   </td>
