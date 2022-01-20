@@ -56,9 +56,7 @@ export default function Home() {
   const tasks = tasksData ? [...tasksData] : [];
 
   //get tasks where isAccepted is true and isFinished is false
-  const acceptedTasks = tasks?.filter(
-    task => task.status === "active"
-  );
+  const acceptedTasks = tasks?.filter(task => task.status === "active");
   console.log("acceptedTasks", acceptedTasks);
 
   const closestTask = acceptedTasks?.find(
@@ -67,15 +65,9 @@ export default function Home() {
       tasks?.reduce((min, p) => (p.deadline < min.deadline ? p : min)).deadline
   ); //  ?. is used to check if the task is not null
 
-  const userIsEnforcer = tasks.find(
-    task => task.enforcer.email.toLowerCase() === data.email.toLowerCase()
-  );
-
-  console.log("userIsEnforcer", userIsEnforcer);
-
   if (data) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col py-12 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-[#444B48] flex flex-col py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm text-center">
           <h3>Lets Get it Done {data.name}!</h3>
         </div>
@@ -93,13 +85,12 @@ export default function Home() {
             View all tasks
           </button>
 
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-12"
-              onClick={() => navigate("/enforcer")}
-            >
-              View all enforcer tasks
-            </button>
-
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-12"
+            onClick={() => navigate("/enforcer")}
+          >
+            View all enforcer tasks
+          </button>
 
           <TaskClosestToDeadline tasks={closestTask} />
         </div>

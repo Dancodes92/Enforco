@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ArrowNarrowDownIcon } from "@heroicons/react/solid";
 
 export default function Landing() {
-
-
   // create a landing page that will show the following:
   // Welcome to Enforco! The best way to ensure you dont procrastinate!
   // Built by procrastinators for procrastinators!
@@ -16,13 +15,27 @@ export default function Landing() {
   // (the enforcer) enter an email of someone who will enforce that the task is completed before the deadline. Once you complete the task, notify the enforcer that you have completed the task with proof of completion. they can then kill the doomsday device and you can rest assured that you have completed the task and no one will ever see your photos.
 
   return (
-    <main className="bg-grey flex flex-col justify-center">
-      <h1 className="text-center px-10 mt-40 text-3xl text-teal-400">Welcome to Enforco!</h1>
-      <p className="text-center">The best motivator to get things done...</p>
-      <div>
-        <Link to="/signup">
-          <p className="text-center m-10">Sign Up</p>
-        </Link>
+    <main className="bg-[#444B48] flex flex-col justify-center">
+      <h1 className="text-center px-10 mt-40 text-3xl text-white font-saira-condensed">
+        Welcome to Enforco!
+      </h1>
+      <div className="flex flex-wrap my-10 justify-center mx-20">
+        <p className="text-center text-sm text-white font-saira-condensed px-10">
+          <q className="italic">
+            {" "}
+            The best way to ensure you succeed is through negative reinforcement
+            and fear
+          </q>{" "}
+          - very succesfull person
+        </p>
+      </div>
+      <div className="flex justify-center mt-28">
+        <p className="text-center text-2xl text-white font-saira-condensed">
+          How it works
+        </p>
+      </div>
+      <div className="flex mt-20 justify-center mx-20">
+        <ArrowNarrowDownIcon className="h-7 w-7 text-black animate-pulse" />
       </div>
     </main>
   );

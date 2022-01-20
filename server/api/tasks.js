@@ -57,8 +57,8 @@ router.post("/", async (req, res, next) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: enforcer,
-      subject: `${user.name} is asking you to make sure they finish ${task.name}`,
-      text: `You have a been asked to enforce a task for ${user.name}. Please log in to your account to accept or reject the task. click here to login https://task-manager-app.herokuapp.com/login`,
+      subject: `${user.name} is asking you to ensure they finish their task`,
+      text: `You have a been asked to enforce a task for ${user.name}. Please click the link to accept! https://task-manager-app.herokuapp.com/login`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
