@@ -15,7 +15,7 @@ export default function Landing() {
   // (the enforcer) enter an email of someone who will enforce that the task is completed before the deadline. Once you complete the task, notify the enforcer that you have completed the task with proof of completion. they can then kill the doomsday device and you can rest assured that you have completed the task and no one will ever see your photos.
 
   return (
-    <main className="bg-[#444B48] flex flex-col justify-center">
+    <main className="bg-[#444B48] flex-flow flex-col justify-center">
       <h1 className="text-center px-10 mt-40 text-3xl text-white font-saira-condensed">
         Welcome to Enforco!
       </h1>
@@ -26,7 +26,7 @@ export default function Landing() {
             The best way to ensure you succeed is through negative reinforcement
             and fear
           </q>{" "}
-          - very succesfull person
+          - Elon Muskrat
         </p>
       </div>
       <div className="flex justify-center mt-28">
@@ -35,7 +35,15 @@ export default function Landing() {
         </p>
       </div>
       <div className="flex mt-20 justify-center mx-20">
-        <ArrowNarrowDownIcon className="h-7 w-7 text-black animate-pulse" />
+        <ArrowNarrowDownIcon className="h-7 w-7 text-black animate-bounce" />
+      </div>
+      <div className="snap-y snap-mandatory h-screen w-screen">
+        <div className="flex justify-center space-x-44">
+          <p className="text-gray-200 mt-60">hello</p>
+        </div>
+      </div>
+      <div className="w-full h-full flex justify-center items-center snap-proximity">
+        <p>hello</p>
       </div>
     </main>
   );
