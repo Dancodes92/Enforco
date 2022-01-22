@@ -15,35 +15,82 @@ export default function Landing() {
   // (the enforcer) enter an email of someone who will enforce that the task is completed before the deadline. Once you complete the task, notify the enforcer that you have completed the task with proof of completion. they can then kill the doomsday device and you can rest assured that you have completed the task and no one will ever see your photos.
 
   return (
-    <main className="bg-[#444B48] flex-flow flex-col justify-center">
-      <h1 className="text-center px-10 mt-40 text-3xl text-white font-saira-condensed">
-        Welcome to Enforco!
-      </h1>
-      <div className="flex flex-wrap my-10 justify-center mx-20">
-        <p className="text-center text-sm text-white font-saira-condensed px-10">
-          <q className="italic">
-            {" "}
-            The best way to ensure you succeed is through negative reinforcement
-            and fear
-          </q>{" "}
-          - Elon Muskrat
-        </p>
-      </div>
-      <div className="flex justify-center mt-28">
-        <p className="text-center text-2xl text-white font-saira-condensed">
-          How it works
-        </p>
-      </div>
-      <div className="flex mt-20 justify-center mx-20">
-        <ArrowNarrowDownIcon className="h-7 w-7 text-black animate-bounce" />
-      </div>
-      <div className="snap-y snap-mandatory h-screen w-screen">
-        <div className="flex justify-center space-x-44">
-          <p className="text-gray-200 mt-60">hello</p>
+    <main className="snap-y snap-mandatory h-screen overflow-auto">
+      <div className="bg-[#444B48] flex flex-col justify-center snap-start h-screen w-screen">
+        <h1 className="text-center px-10 text-3xl text-white font-saira-condensed">
+          Welcome to Enforco!
+        </h1>
+        <div className="flex flex-wrap my-10 justify-center mx-20">
+          <p className="text-center text-sm text-white font-saira-condensed px-10">
+            <q className="italic">
+              {" "}
+              The best way to ensure you succeed is through negative
+              reinforcement and fear
+            </q>{" "}
+            - Elon Muskrat
+          </p>
+        </div>
+        <div className="flex justify-center mt-28">
+          <p className="text-center text-2xl text-white font-saira-condensed">
+            How it works
+          </p>
+        </div>
+        <div className="flex mt-20 justify-center mx-20">
+          <ArrowNarrowDownIcon
+            className="pt-2 h-7 w-7 text-black animate-bounce cursor-pointer"
+            onClick={className => {
+              //scroll to the next div on click
+              document.getElementById("second").scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+          />
         </div>
       </div>
-      <div className="w-full h-full flex justify-center items-center snap-proximity">
-        <p>hello</p>
+
+      <div
+        className="flex flex-col items-center justify-center snap-start w-screen h-screen"
+        id="second"
+      >
+        {/* a box with text inside it */}
+        <div className="bg-[#444B48] rounded-lg p-10 w-full h-full">
+          <h1 className="text-center text-2xl text-white font-saira-condensed pt-20">
+            Goal Accountability
+          </h1>
+          <div className="flex justify-center mt-10 mx-20">
+            <p className="text-center text-sm text-white font-saira-condensed">
+              It works by allowing you to upload a photo of yourself that no one
+              should see...EVER... something so embarrassing that if it ever got
+              out would be mortifying.
+            </p>
+          </div>
+          <div className="flex justify-center mt-8 mx-20">
+            <p className="text-center text-sm text-white font-saira-condensed">
+              You must complete the task (goal) you created before the deadline,
+              If you do not complete the task before the deadline, the photo is
+              automatically emailed to a “receiver” that you specify (family
+              friend boss etc...), ultimately humiliating you forever.
+            </p>
+          </div>
+          <div className="flex justify-center mt-8 mx-20">
+            <p className="text-center text-sm text-white font-saira-condensed">
+              The enforcer is someone that you choose to approve your proof of
+              work. Submit your work when finished to them and they will hold
+              the power to set the task to complete (ending the doomsday
+              device). This will stop the countdown and your photo will be
+              destroyed, never to be seen by anyone.
+            </p>
+          </div>
+          {/* Sign up button */}
+          <div className="flex justify-center mt-10 mx-20">
+            <Link
+              to="/signup"
+              className="bg-transparent font-saira-condensed hover:bg-white text-black font-semibold hover:text-black py-2 px-4 border border-black hover:border-transparent rounded"
+            >
+              Sign Up
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );

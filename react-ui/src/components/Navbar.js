@@ -62,7 +62,7 @@ function Navbar(props) {
               />
             </div>
             <div className="flex items-center justify-end space-x-4">
-            <HomeIcon  onClick={() => navigate("/home")} className=" hidden h-6 md:inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out"/>
+            <HomeIcon  onClick={() => navigate("/home")} className=" h-6 md:inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out"/>
               <Link
                 to="/login"
                 className="text-white hover:text-gray-700 font-saira-condensed text-xl"
