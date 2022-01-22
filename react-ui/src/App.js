@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function App() {
   return (
-    <div className="bg-[#444B48] overscroll-auto">
+    <div className="bg-[#444B48] scrollbar-hide">
       <Toaster position="top" />
       <Navbar />
       <Routes />
