@@ -58,14 +58,14 @@ export default function Landing() {
             Goal Accountability
           </h1>
           <div className="flex justify-center mt-5 mx-20">
-            <p className="text-center text-sm text-white font-saira-condensed">
+            <p className="text-center text-l text-white font-saira-condensed">
               It works by allowing you to upload a photo of yourself that no one
               should see...EVER... something so embarrassing that if it ever got
               out would be mortifying.
             </p>
           </div>
           <div className="flex justify-center mt-3 mx-20">
-            <p className="text-center text-sm text-white font-saira-condensed">
+            <p className="text-center text-l text-white font-saira-condensed">
               You must complete the task (goal) you created before the deadline,
               If you do not complete the task before the deadline, the photo is
               automatically emailed to a “receiver” that you specify (family
@@ -73,7 +73,7 @@ export default function Landing() {
             </p>
           </div>
           <div className="flex justify-center mt-3 mx-20">
-            <p className="text-center text-sm text-white font-saira-condensed">
+            <p className="text-center text-l text-white font-saira-condensed">
               The enforcer is someone that you choose to approve your proof of
               work. Submit your work when finished to them and they will hold
               the power to set the task to complete (ending the doomsday
