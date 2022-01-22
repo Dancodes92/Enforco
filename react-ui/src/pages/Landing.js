@@ -15,7 +15,7 @@ export default function Landing() {
   // (the enforcer) enter an email of someone who will enforce that the task is completed before the deadline. Once you complete the task, notify the enforcer that you have completed the task with proof of completion. they can then kill the doomsday device and you can rest assured that you have completed the task and no one will ever see your photos.
 
   return (
-    <main className="snap-y snap-mandatory h-screen overflow-auto">
+    <main className="snap-y snap-mandatory h-screen overscroll-contain">
       <div className="bg-[#444B48] flex flex-col justify-center snap-start h-screen w-screen">
         <h1 className="text-center px-10 text-3xl text-white font-saira-condensed">
           Welcome to Enforco!
@@ -54,17 +54,17 @@ export default function Landing() {
       >
         {/* a box with text inside it */}
         <div className="bg-[#444B48] rounded-lg p-10 w-full h-full">
-          <h1 className="text-center text-2xl text-white font-saira-condensed pt-20">
+          <h1 className="text-center text-2xl text-white font-saira-condensed pt-5">
             Goal Accountability
           </h1>
-          <div className="flex justify-center mt-10 mx-20">
+          <div className="flex justify-center mt-5 mx-20">
             <p className="text-center text-sm text-white font-saira-condensed">
               It works by allowing you to upload a photo of yourself that no one
               should see...EVER... something so embarrassing that if it ever got
               out would be mortifying.
             </p>
           </div>
-          <div className="flex justify-center mt-8 mx-20">
+          <div className="flex justify-center mt-3 mx-20">
             <p className="text-center text-sm text-white font-saira-condensed">
               You must complete the task (goal) you created before the deadline,
               If you do not complete the task before the deadline, the photo is
@@ -72,7 +72,7 @@ export default function Landing() {
               friend boss etc...), ultimately humiliating you forever.
             </p>
           </div>
-          <div className="flex justify-center mt-8 mx-20">
+          <div className="flex justify-center mt-3 mx-20">
             <p className="text-center text-sm text-white font-saira-condensed">
               The enforcer is someone that you choose to approve your proof of
               work. Submit your work when finished to them and they will hold
@@ -82,7 +82,7 @@ export default function Landing() {
             </p>
           </div>
           {/* Sign up button */}
-          <div className="flex justify-center mt-10 mx-20">
+          <div className="flex justify-center mt-5 mx-20">
             <Link
               to="/signup"
               className="bg-transparent font-saira-condensed hover:bg-white text-black font-semibold hover:text-black py-2 px-4 border border-black hover:border-transparent rounded"

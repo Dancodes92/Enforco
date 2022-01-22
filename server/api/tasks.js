@@ -58,7 +58,7 @@ router.post("/", async (req, res, next) => {
       from: process.env.EMAIL,
       to: enforcer,
       subject: `${user.name} is asking you to ensure they finish their task`,
-      text: `You have a been asked to enforce a task for ${user.name}. Please click the link to accept! https://task-manager-app.herokuapp.com/login`,
+      text: `You have a been asked to enforce a task for ${user.name}. Please click the link to accept! https://enforco.herokuapp.com`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
@@ -168,7 +168,7 @@ router.put("/acceptorcomplete", async (req, res, next) => {
         from: process.env.EMAIL,
         to: taskUser.email,
         subject: `${enforcer.email} has accepted your task`,
-        text: `Your task has been accepted by ${enforcer.email}. The countdown has begun... Godspeed. click here to login https://task-manager-app.herokuapp.com/login`,
+        text: `Your task has been accepted by ${enforcer.email}. The countdown has begun... Godspeed. click here to login https://enforco.herokuapp.com`,
       };
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -183,7 +183,7 @@ router.put("/acceptorcomplete", async (req, res, next) => {
           from: process.env.EMAIL,
           to: taskUser.email,
           subject: `YOUR PICTURES ARE DESTROYED! ${enforcer.email} has marked task as finished`,
-          text: `Your task has been marked finished by ${enforcer.email}. You have avoided embarrasment! Rest assured the embarrasing pictures have been destroyed. click here to login https://task-manager-app.herokuapp.com/login`,
+          text: `Your task has been marked finished by ${enforcer.email}. You have avoided embarrasment! Rest assured the embarrasing pictures have been destroyed. click here to login https://enforco.herokuapp.com`,
         };
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {

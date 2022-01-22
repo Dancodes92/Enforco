@@ -74,7 +74,7 @@ function NewTask() {
     <div className="min-h-screen bg-gray-50 flex justify-center py-10 sm:px-6 lg:px-10">
       <form onSubmit={onSubmit} className="w-full max-w-lg">
         <h1 className="text-center text-3xl font-extrabold text-gray-900">
-          Create a new task
+          Create A New Task
         </h1>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
