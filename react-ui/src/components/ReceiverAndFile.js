@@ -14,15 +14,14 @@ function ReceiverAndFile({
   const addImage = e => {
     const reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
-    reader.onload = (readerEvent) => {
+    reader.onload = readerEvent => {
       onAddFileChange(readerEvent.target.result);
-    }
-  }
+    };
+  };
 
-const filePickerRef = null;
+  const filePickerRef = null;
 
   const canSubmit = receiver.length > 0;
-
 
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center py-10 sm:px-6 lg:px-10">
@@ -61,6 +60,22 @@ const filePickerRef = null;
               ref={filePickerRef}
               onChange={addImage}
             />
+        <div className="w-full bg-gray-200 rounded-full">
+          <div
+            className="
+                    w-30
+                    p-1
+                    text-xs
+                    font-medium
+                    leading-none
+                    text-center text-blue-100
+                    bg-blue-600
+                    rounded-full
+                     mb-3
+                  "
+          >
+          </div>
+        </div>
           </div>
           <div className="w-full px-3 flex justify-center items-center">
             <button
@@ -84,7 +99,6 @@ const filePickerRef = null;
                 Submit
               </div>
             )}
-
           </div>
         </div>
       </div>

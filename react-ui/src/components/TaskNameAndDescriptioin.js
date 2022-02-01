@@ -53,6 +53,21 @@ const TaskNameAndDescription = ({
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 placeholder="What are you going to accomplish?"
               />
+              <div className="w-full bg-gray-200 rounded-full">
+                <div
+                  className="
+                    w-0
+                    p-1
+                    text-xs
+                    font-medium
+                    leading-none
+                    text-center text-blue-100
+                    bg-blue-600
+                    rounded-full
+                    mb-3
+                  "
+                ></div>
+              </div>
             </label>
           </div>
           <div className="w-full px-3">

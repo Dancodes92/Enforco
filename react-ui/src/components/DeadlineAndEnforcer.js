@@ -24,6 +24,7 @@ function Deadline({
         <h1 className="text-center text-3xl font-extrabold text-gray-900">
           Create A New Task
         </h1>
+
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
@@ -57,6 +58,10 @@ function Deadline({
               onChange={onEnforcerChangeHandler}
               required
             />
+        <div className="w-full bg-gray-200 rounded-full">
+          {/* step 2 */}
+          <div className="w-60 p-1 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full mb-3"></div>
+        </div>
           </div>
           <div className="w-full px-3 flex justify-center items-center">
             <button
