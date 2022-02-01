@@ -3,7 +3,6 @@ import { useAddTaskMutation } from "../store/features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import TaskNameAndDescription from "../components/TaskNameAndDescriptioin";
-import Success from "../components/Success";
 import DeadlineAndEnforcer from "../components/DeadlineAndEnforcer";
 import ReceiverAndFile from "../components/ReceiverAndFile";
 
@@ -14,7 +13,6 @@ function NewTask() {
   const [enforcer, setEnforcer] = useState("");
   const [receiver, setReceiver] = useState("");
   const [step, setStep] = useState(1);
-
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -35,29 +33,51 @@ function NewTask() {
     };
   };
 
-  const onAddFileChange = file => {
-    setFile(file);
+  const onAddFileChange = input => {
+    setFile(input);
   };
+  console.log("all", taskName, description, deadline, enforcer, receiver, file);
 
-  const addTaskHandler = async () => {
+  // const onSubmit = async () => {
+  //   setLoading(true);
+  //   const { data } = await addTask({
+  //     variables: {
+  //       taskName,
+  //       description,
+  //       deadline,
+  //       enforcer,
+  //       receiver,
+  //       file,
+  //     },
+  //   });
+  //   setLoading(false);
+  //   if (data) {
+  //     toast.success("Task added successfully");
+  //     navigate("/home");
+  //   } else {
+  //     toast.error("Error adding task");
+  //   }
+  // };
+
+  const onSubmit = async e => {
+    e.preventDefault();
     setLoading(true);
-    const { data } = await addTask({
-      variables: {
+    try {
+      await addTask({
         taskName,
         description,
         deadline,
         enforcer,
         receiver,
-        file
-      }
-    });
-    setLoading(false);
-    if (data) {
-      toast.success("Task added successfully");
+        file,
+      });
+      toast.success(`Task added successfully and sent to ${enforcer}`);
       navigate("/home");
+    } catch (error) {
+      console.log(error);
     }
+    setLoading(false);
   };
-
 
   const onTaskNameChange = input => {
     setTaskName(input);
@@ -82,24 +102,7 @@ function NewTask() {
   const onReceiverChange = input => {
     setReceiver(input);
   };
-  const onSubmit = async e => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await addTask({
-        taskName,
-        description,
-        deadline,
-        enforcer,
-        receiver,
-        file,
-      });
-      navigate("/home");
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
+
   //can i get rid of id on the input?
   //   return (
   //     <div className="min-h-screen bg-gray-50 flex justify-center py-10 sm:px-6 lg:px-10">
@@ -257,12 +260,10 @@ function NewTask() {
           file={file}
           onAddFileChange={onAddFileChange}
           onReceiverChange={onReceiverChange}
-          onNextStep={onNextStep}
+          onSubmit={onSubmit}
           onPrevStep={onPrevStep}
         />
       );
-    case 4:
-      return <Success />;
     default:
       return null;
   }

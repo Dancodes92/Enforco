@@ -4,8 +4,7 @@ function ReceiverAndFile({
   onReceiverChange,
   onAddFileChange,
   receiver,
-  file,
-  onNextStep,
+  onSubmit,
   onPrevStep,
 }) {
   const onReceiverChangeHandler = e => {
@@ -21,6 +20,9 @@ function ReceiverAndFile({
   }
 
 const filePickerRef = null;
+
+  const canSubmit = receiver.length > 0;
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center py-10 sm:px-6 lg:px-10">
@@ -38,11 +40,12 @@ const filePickerRef = null;
             </label>
             <input
               type="email"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="receiver"
               placeholder="Enter receiver email"
               value={receiver}
               onChange={onReceiverChangeHandler}
+              required
             />
 
             <label
@@ -53,7 +56,7 @@ const filePickerRef = null;
             </label>
             <input
               type="file"
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="file"
               ref={filePickerRef}
               onChange={addImage}
@@ -67,13 +70,21 @@ const filePickerRef = null;
             >
               Back
             </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-              onClick={onNextStep}
-            >
-              Next
-            </button>
+
+            {canSubmit ? (
+              <button
+                className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={onSubmit}
+              >
+                Submit
+              </button>
+            ) : (
+              <div className=" bg-gray-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ">
+                Submit
+              </div>
+            )}
+
           </div>
         </div>
       </div>
